@@ -1,22 +1,27 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "asyncapi_server/version"
+require "asyncapi/server/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "asyncapi_server"
-  s.version     = AsyncapiServer::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of AsyncapiServer."
-  s.description = "TODO: Description of AsyncapiServer."
+  s.name        = "asyncapi-server"
+  s.version     = Asyncapi::Server::VERSION
+  s.authors     = ["Ramon Tayag", "Marc Ignacio"]
+  s.email       = ["ramon@aelogica.com", "marc@aelogica.com"]
+  s.homepage    = "http://github.com/g5search/noneyet"
+  s.summary     = "Asynchronous API communication - Server"
+  s.description = "Asynchronous API communication - Server"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 4.1.7"
 
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "sqlite3", "~> 1.3.10"
+  s.add_development_dependency "rspec-rails", "~> 3.1.0"
+  s.add_development_dependency "rspec-its", "~> 1.1.0"
+  s.add_development_dependency "pry", "~> 0.10.1"
+  s.add_development_dependency "factory_girl", "~> 4.4.0"
+  s.add_development_dependency "database_cleaner", "~> 1.3.0"
 end
