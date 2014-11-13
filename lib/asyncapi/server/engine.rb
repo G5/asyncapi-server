@@ -12,6 +12,8 @@ module Asyncapi
       engine_name "asyncapi_server"
 
       config.to_prepare do
+        ::ApplicationController.send :include, RailsExt::Controller
+
         Engine.routes.default_url_options =
           Rails.application.routes.default_url_options
       end

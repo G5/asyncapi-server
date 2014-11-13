@@ -54,4 +54,6 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   mount Asyncapi::Server::Engine, at: "/asyncapi/server"
+
+  resources :tests
 end
