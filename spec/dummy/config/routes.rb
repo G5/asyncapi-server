@@ -53,4 +53,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  mount Asyncapi::Server::Engine, at: "/asyncapi/server"
 end
