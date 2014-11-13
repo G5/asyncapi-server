@@ -9,8 +9,9 @@ module Asyncapi
           def async(method_name, klass)
             define_method(method_name) do
               job = Job.create(job_params_with(klass.name))
+              serializer = JobSerializer.new(job)
               JobWorker.perform_async(job.id)
-              render json: job
+              render json: serializer
             end
           end
         end

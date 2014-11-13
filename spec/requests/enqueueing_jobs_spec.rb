@@ -23,8 +23,8 @@ describe "Enqueueing jobs", type: :request do
     })
 
     expect(response).to be_successful
-    parsed_response = indifferent_hash(response.body)
-    # expect(parsed_response[:url]).to eq "server_job_url"
+    parsed_response = indifferent_hash(response.body)[:job]
+    expect(parsed_response[:url]).to eq "server_job_url"
   end
 
 end

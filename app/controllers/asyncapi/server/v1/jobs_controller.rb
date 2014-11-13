@@ -6,13 +6,15 @@ module Asyncapi
         respond_to :json
 
         def index
-          jobs = Job.all
-          paginate json: jobs
+          jobs = paginate Job.all
+          serializer = ActiveModel::ArraySerializer.new(jobs)
+          render json: serializer
         end
 
         def show
           job = Job.find(params[:id])
-          respond_with job
+          job = JobSerializer.new(job)
+          render json: job
         end
 
       end
