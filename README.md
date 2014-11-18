@@ -1,6 +1,6 @@
 # Asyncapi::Server
 
-`Asyncapi::Server` is a Rails engine that allows asynchronous responses for API calls made by `Asyncapi::Client`.
+`Asyncapi::Server` is a Rails engine that allows asynchronous responses for API calls made by [Asyncapi::Client](https://github.com/G5/asyncapi-client).
 
 # Installation
 
