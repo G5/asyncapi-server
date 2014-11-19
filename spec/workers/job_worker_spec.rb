@@ -26,6 +26,10 @@ module Asyncapi
                 message: "message",
               }
             }.to_json,
+            headers: {
+              "Content-Type" => "application/json",
+              Accept: "application/json"
+            }
           )
 
           described_class.new.perform(job.id)
@@ -54,6 +58,10 @@ module Asyncapi
                   message: ["my error", "back", "trace"].join("\n"),
                 }
               }.to_json,
+              headers: {
+                "Content-Type" => "application/json",
+                Accept: "application/json"
+              }
             )
 
             described_class.new.perform(job.id)

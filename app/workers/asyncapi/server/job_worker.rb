@@ -28,7 +28,11 @@ module Asyncapi::Server
             status: job.status,
             message: job_message,
           }
-        }.to_json
+        }.to_json,
+        headers: {
+          "Content-Type" => "application/json",
+          Accept: "application/json"
+        }
       )
     end
 
