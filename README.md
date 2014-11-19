@@ -51,7 +51,7 @@ end
 If you use `protected_attributes`, in an initializer:
 
 ```ruby
-Asyncapi::Server::Job.attr_accessible :callback_url, :class_name, :params
+Asyncapi::Server::Job.attr_accessible :status, :callback_url, :class_name, :params
 ```
 
 ## License
