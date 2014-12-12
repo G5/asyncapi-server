@@ -27,6 +27,7 @@ module Asyncapi::Server
           job: {
             status: job.status,
             message: job_message,
+            secret: job.secret,
           }
         }.to_json,
         headers: {

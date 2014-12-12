@@ -18,7 +18,12 @@ module Asyncapi
 
         def job_params_with(class_name)
           params[:job].merge!(class_name: class_name)
-          params.require(:job).permit(:callback_url, :class_name, :params)
+          params.require(:job).permit(
+            :callback_url,
+            :class_name,
+            :params,
+            :secret,
+          )
         end
 
       end

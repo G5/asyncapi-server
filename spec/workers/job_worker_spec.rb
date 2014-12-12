@@ -14,6 +14,7 @@ module Asyncapi
             class_name: "Runner",
             params: {some: "params"}.to_json,
             callback_url: "client_job_url",
+            secret: "sekret",
           })
 
           expect(Runner).to receive(:call).
@@ -24,6 +25,7 @@ module Asyncapi
               job: {
                 status: :success,
                 message: "message",
+                secret: "sekret",
               }
             }.to_json,
             headers: {
@@ -41,7 +43,8 @@ module Asyncapi
           it "reports the error to the callback url" do
             job = create(:asyncapi_server_job, {
               class_name: "Runner",
-              callback_url: "client_job_url"
+              callback_url: "client_job_url",
+              secret: "sekret",
             })
 
             error = ArgumentError.new("my error")
@@ -56,6 +59,7 @@ module Asyncapi
                 job: {
                   status: :error,
                   message: ["my error", "back", "trace"].join("\n"),
+                  secret: "sekret",
                 }
               }.to_json,
               headers: {
