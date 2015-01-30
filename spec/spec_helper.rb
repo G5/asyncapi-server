@@ -8,6 +8,7 @@ require "rspec/its"
 require "factory_girl_rails"
 require "pry"
 require "database_cleaner"
+require "timecop"
 
 Rails.backtrace_cleaner.remove_silencers!
 

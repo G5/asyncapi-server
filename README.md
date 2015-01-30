@@ -54,6 +54,16 @@ If you use `protected_attributes`, in an initializer:
 Asyncapi::Server::Job.attr_accessible :status, :callback_url, :class_name, :params, :secret
 ```
 
+## Cleaning Up Old Jobs
+
+Since the jobs are written into the database, some cleaning up has to be done. By default, jobs older than 10 days are removed. You can change this setting by placing this in an initializer:
+
+```ruby
+Asyncapi::Server.expiry_threshold = 30.days # or set to nil to not delete any jobs, ever.
+```
+
+Whenever a job is created, `Asyncapi::Server` will delete jobs that are past its `expired_at` field. This means that if on the 9th day onwards no jobs are created, then no jobs will be deleted. This removes the need to create a recurring task which adds complexity. The `expired_at` field is set when the job is created and is based on the current time plus the `expiry_threshold` setting.
+
 ## License
 
 Copyright (c) 2014 G5
