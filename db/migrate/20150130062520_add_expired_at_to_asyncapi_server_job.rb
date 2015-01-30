@@ -6,6 +6,6 @@ class AddExpiredAtToAsyncapiServerJob < ActiveRecord::Migration
 
     Asyncapi::Server::Job.
       where(Asyncapi::Server::Job.arel_table[:expired_at].eq(nil)).
-      update_all(expired_at: Asyncapi::Server.expiry_threshold)
+      update_all(expired_at: Asyncapi::Server.expiry_threshold.from_now)
   end
 end
