@@ -4,6 +4,10 @@ module Asyncapi
   module Server
     describe CleanerWorker, "#perform" do
 
+      it "does not retry" do
+        expect(described_class.sidekiq_options_hash['retry']).to be false
+      end
+
       it "destroys jobs older past the expiry date" do
         create(:asyncapi_server_job, expired_at: 1.day.ago)
         remaining_job = create(:asyncapi_server_job, expired_at: 2.days.from_now)
