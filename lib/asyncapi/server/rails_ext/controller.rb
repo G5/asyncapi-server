@@ -11,7 +11,6 @@ module Asyncapi
               job = Job.create(job_params_with(klass.name))
               serializer = JobSerializer.new(job)
               JobWorker.perform_async(job.id)
-              CleanerWorker.perform_async
               render json: serializer
             end
           end
