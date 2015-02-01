@@ -11,15 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130062901) do
+ActiveRecord::Schema.define(version: 20150201231329) do
 
   create_table "asyncapi_server_jobs", force: true do |t|
-    t.integer  "status"
-    t.string   "callback_url"
-    t.string   "class_name"
-    t.text     "params"
-    t.string   "secret"
-    t.datetime "expired_at"
+    t.integer "status"
+    t.string  "callback_url"
+    t.string  "class_name"
+    t.text    "params"
+    t.string  "secret"
   end
 
 end
