@@ -29,6 +29,22 @@ module Asyncapi
           end
         end
 
+        describe "DELETE destroy" do
+          it "finds the job by id and secret and deletes it" do
+            job = create(:asyncapi_server_job, secret: "12312")
+            delete :destroy, format: :json, id: job.id, secret: "12312"
+            expect(response).to be_successful
+          end
+
+          context "secret does not match" do
+            it "does not delete the job" do
+              job = create(:asyncapi_server_job, secret: "12312")
+              delete :destroy, format: :json, id: job.id, secret: "12315"
+              expect(response.status).to eq 404
+            end
+          end
+        end
+
       end
     end
   end

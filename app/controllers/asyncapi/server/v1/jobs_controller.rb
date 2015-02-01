@@ -17,6 +17,16 @@ module Asyncapi
           render json: job
         end
 
+        def destroy
+          job = Job.find_by(id: params[:id], secret: params[:secret])
+          if job
+            job.destroy
+            respond_with job
+          else
+            render nothing: true, status: 404
+          end
+        end
+
       end
     end
   end
