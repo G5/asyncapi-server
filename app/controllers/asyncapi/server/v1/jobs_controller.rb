@@ -3,6 +3,7 @@ module Asyncapi
     module V1
       class JobsController < ApplicationController # TODO: Asyncapi::Server.parent_controller
 
+        protect_from_forgery with: :null_session
         respond_to :json
 
         def index
