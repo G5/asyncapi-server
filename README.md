@@ -54,6 +54,22 @@ If you use `protected_attributes`, in an initializer:
 Asyncapi::Server::Job.attr_accessible :status, :callback_url, :class_name, :params, :secret
 ```
 
+### RSpec
+
+If you want to create an integration spec for you Asyncapi server endpoint, make sure you require the helper:
+
+```ruby
+require "asyncapi/server/rspec"
+```
+
+When you make a request, instead of `post`, use `asyncapi_post`. Ex:
+
+```ruby
+asyncapi_post("/api/v1/long_running_job", name: "Compute")
+```
+
+This helper calls `post` underneath but builds the request in a way that Asyncapi server understands.
+
 ## License
 
 Copyright (c) 2014 G5
