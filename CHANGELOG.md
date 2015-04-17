@@ -1,4 +1,4 @@
-# TBA
+# 1.0.0
 
 - Fix issue with asyncapi client not seeing request body; post as json
 - Send secret back to the app using `asyncapi-client` for authentication
