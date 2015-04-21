@@ -40,7 +40,7 @@ module Asyncapi
         end
 
         context "an error occurred" do
-          it "reports the error to the callback url" do
+          it "reports the error to the callback url and re-raises it" do
             job = create(:asyncapi_server_job, {
               class_name: "Runner",
               callback_url: "client_job_url",
@@ -68,7 +68,8 @@ module Asyncapi
               }
             )
 
-            described_class.new.perform(job.id)
+            expect { described_class.new.perform(job.id) }.
+              to raise_error(error)
             job.reload
             expect(job.status).to eq "error"
           end

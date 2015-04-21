@@ -1,3 +1,7 @@
+# TBA
+
+- Re-raise error if job worker runs into one. Makes errors more visible.
+
 # 1.0.0
 
 - Fix issue with asyncapi client not seeing request body; post as json
