@@ -13,6 +13,7 @@ module Asyncapi::Server
     rescue => e
       job_status = :error
       job_message = [e.message, e.backtrace].flatten.join("\n")
+      raise e
     ensure
       job.update_attributes(status: job_status)
       report_job_status(job, job_message)
