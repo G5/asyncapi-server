@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150201231329) do
+ActiveRecord::Schema.define(version: 20150201231018) do
 
-  create_table "asyncapi_server_jobs", force: true do |t|
+  create_table "asyncapi_server_jobs", force: :cascade do |t|
     t.integer "status"
     t.string  "callback_url"
     t.string  "class_name"

@@ -9,8 +9,10 @@ module Asyncapi
           def async(method_name, klass)
             define_method(method_name) do
               job = Job.create(job_params_with(klass.name))
+              ActiveRecord::Base.after_transaction do
+                JobWorker.perform_async(job.id)
+              end
               serializer = JobSerializer.new(job)
-              JobWorker.perform_async(job.id)
               render json: serializer
             end
           end
