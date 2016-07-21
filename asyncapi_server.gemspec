@@ -24,10 +24,12 @@ Gem::Specification.new do |s|
   s.add_dependency "typhoeus"
   s.add_dependency "sidekiq"
   s.add_dependency "responders", "~> 2.0"
+  s.add_dependency "ar_after_transaction"
 
   s.add_development_dependency "sqlite3", "~> 1.3.10"
   s.add_development_dependency "rspec-rails", "~> 3.1.0"
   s.add_development_dependency "rspec-its", "~> 1.1.0"
+  s.add_development_dependency "rspec-sidekiq"
   s.add_development_dependency "pry", "~> 0.10.1"
   s.add_development_dependency "factory_girl_rails", "~> 4.4.0"
   s.add_development_dependency "database_cleaner", "~> 1.3.0"

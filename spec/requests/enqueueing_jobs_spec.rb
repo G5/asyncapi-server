@@ -4,20 +4,7 @@ describe "Enqueueing jobs", type: :request do
 
   let(:job) { build_stubbed(:asyncapi_server_job, secret: "secret") }
 
-  before do
-    allow(Asyncapi::Server::Job).to receive(:create).with(
-      class_name: "Runner",
-      callback_url: "callback_url",
-      params: {client: "params"}.to_json,
-      secret: "secret",
-    ).and_return(job)
-
-    allow(job).to receive(:url).and_return("server_job_url")
-  end
-
-  it "allows asynchronous handling of http requests and cleans up old jobs" do
-    expect(Asyncapi::Server::JobWorker).to receive(:perform_async).with(job.id)
-
+  it "allows asynchronous handling of http requests and cleans up old jobs", cleaning_strategy: :truncation do
     post("/tests", job: {
       callback_url: "callback_url",
       params: {client: "params"}.to_json,
@@ -26,7 +13,9 @@ describe "Enqueueing jobs", type: :request do
 
     expect(response).to be_successful
     parsed_response = indifferent_hash(response.body)[:job]
-    expect(parsed_response[:url]).to eq "server_job_url"
+    expect(Asyncapi::Server::JobWorker).
+      to have_enqueued_job(parsed_response[:id])
+    expect(parsed_response[:url]).to be_present
     expect(parsed_response[:secret]).to eq "secret"
   end
 

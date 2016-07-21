@@ -9,6 +9,7 @@ require "factory_girl_rails"
 require "pry"
 require "database_cleaner"
 require "timecop"
+require 'rspec-sidekiq'
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -29,12 +30,13 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with :truncation
   end
 
-  config.before do
-    DatabaseCleaner.strategy = :transaction
+  config.before do |example|
+    DatabaseCleaner.strategy = example.metadata[:cleaning_strategy] ||
+      :transaction
     DatabaseCleaner.start
   end
 
-  config.after do
+  config.append_after(:each) do
     DatabaseCleaner.clean
   end
 end
