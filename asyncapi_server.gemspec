@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency "active_model_serializers", "~> 0.9.0"
   s.add_dependency "typhoeus"
   s.add_dependency "sidekiq"
+  s.add_dependency "sidekiq-cron"
   s.add_dependency "responders", "~> 2.0"
 
   s.add_development_dependency "sqlite3", "~> 1.3.10"

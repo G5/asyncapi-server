@@ -7,6 +7,7 @@ module Asyncapi
 
     CONFIGURATION = {
       expiry_threshold: 10.days,
+      clean_job_cron: "0 * * * *",
     }
 
     CONFIGURATION.each do |var, default|
