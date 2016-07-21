@@ -1,4 +1,5 @@
 require 'active_model_serializers'
+require 'responders'
 require "asyncapi/server/engine"
 
 module Asyncapi
