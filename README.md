@@ -72,7 +72,7 @@ This helper calls `post` underneath but builds the request in a way that Asyncap
 
 ## License
 
-Copyright (c) 2015 G5
+Copyright (c) 2016 G5
 
 MIT License
 
