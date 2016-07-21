@@ -70,6 +70,12 @@ asyncapi_post("/api/v1/long_running_job", name: "Compute")
 
 This helper calls `post` underneath but builds the request in a way that Asyncapi server understands.
 
+## Development
+
+- Run `rake db:migrate && rake db:migrate RAILS_ENV=test`
+- Make changes
+- `rspec`
+
 ## License
 
 Copyright (c) 2016 G5
