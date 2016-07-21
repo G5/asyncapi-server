@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari"
   s.add_dependency "api-pagination"
   s.add_dependency "rails", "~> 4.0"
-  s.add_dependency "active_model_serializers"
+  s.add_dependency "active_model_serializers", "~> 0.9.0"
   s.add_dependency "typhoeus"
   s.add_dependency "sidekiq"
   s.add_dependency "responders", "~> 2.0"
