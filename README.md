@@ -54,6 +54,37 @@ If you use `protected_attributes`, in an initializer:
 Asyncapi::Server::Job.attr_accessible :status, :callback_url, :class_name, :params, :secret
 ```
 
+## Usage without Asyncapi::Client
+
+If you want to use this without asyncapi client, you need to prepare two things: the endpoint that asyncapi-server will reply to.
+
+Create the job by POSTing the following to CreateSomething above:
+
+```json
+{
+  "job": {
+    "callback_url": "https://myclient.com/jobs_callback",
+    "params": {
+      "name": "Something's name",
+      "approved": true
+    },
+    "secret": "A secret unique to this job, so that you know what job the server is referring to"
+  }
+}
+```
+
+When the server is done processing, it will post something to your client. Your endpoint must accept the following json as the body:
+
+```
+{
+  "job": {
+    "status": "success",
+    "message": "The output of the Runner class (i.e. `CreateSomething`)",
+    "secret": "The secret you had sent earlier (this is how you can be sure it's not someone else updating your endpoint)",
+  }
+}
+```
+
 ### RSpec
 
 If you want to create an integration spec for you Asyncapi server endpoint, make sure you require the helper:
@@ -70,9 +101,15 @@ asyncapi_post("/api/v1/long_running_job", name: "Compute")
 
 This helper calls `post` underneath but builds the request in a way that Asyncapi server understands.
 
+## Development
+
+- Run `rake db:migrate && rake db:migrate RAILS_ENV=test`
+- Make changes
+- `rspec`
+
 ## License
 
-Copyright (c) 2015 G5
+Copyright (c) 2016 G5
 
 MIT License
 

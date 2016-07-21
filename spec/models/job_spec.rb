@@ -39,6 +39,25 @@ module Asyncapi
         end
       end
 
+      describe ".expired" do
+        let!(:job_1) do
+          create(:asyncapi_server_job, expired_at: 2.minutes.ago)
+        end
+        let!(:job_2) do
+          create(:asyncapi_server_job, expired_at: 2.minutes.from_now)
+        end
+        let!(:job_3) do
+          create(:asyncapi_server_job, expired_at: 2.minutes.ago)
+        end
+        let!(:job_4) do
+          create(:asyncapi_server_job, expired_at: nil)
+        end
+
+        it "returns expired job" do
+          expect(Job.expired).to match_array([job_1, job_3])
+        end
+      end
+
     end
   end
 end

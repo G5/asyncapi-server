@@ -23,6 +23,7 @@ module Asyncapi
             :class_name,
             :params,
             :secret,
+            :expired_at,
           )
         end
 
