@@ -18,7 +18,7 @@ describe "Enqueueing jobs", type: :request do
   it "allows asynchronous handing of http requests and cleans up old jobs" do
     expect(Asyncapi::Server::JobWorker).to receive(:perform_async).with(job.id)
 
-    post("tests", job: {
+    post("/tests", job: {
       callback_url: "callback_url",
       params: {client: "params"}.to_json,
       secret: "secret",
