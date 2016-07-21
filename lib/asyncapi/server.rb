@@ -6,7 +6,6 @@ module Asyncapi
   module Server
 
     CONFIGURATION = {
-      expiry_threshold: 10.days,
       clean_job_cron: "0 * * * *",
     }
 
