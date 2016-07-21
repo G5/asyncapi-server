@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Fixed
+- Sidekiq sometimes not able to find Job records
+
 ## [1.1.0] - 2016-03-21
 ### Added
 - Re-raise error if job worker runs into one. Makes errors more visible.
