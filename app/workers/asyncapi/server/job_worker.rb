@@ -3,8 +3,9 @@ module Asyncapi::Server
 
     include Sidekiq::Worker
     sidekiq_options retry: false
+    MAX_RETRIES = 2
 
-    def perform(job_id)
+    def perform(job_id, retries=0)
       job = Job.find(job_id)
       runner_class = job.class_name.constantize
 
@@ -15,8 +16,14 @@ module Asyncapi::Server
       job_message = [e.message, e.backtrace].flatten.join("\n")
       raise e
     ensure
-      job.update_attributes(status: job_status)
-      report_job_status(job, job_message)
+      if job
+        job.update_attributes(status: job_status)
+        report_job_status(job, job_message)
+      else
+        if retries < MAX_RETRIES
+          JobWorker.perform_async(job_id, retries+1)
+        end
+      end
     end
 
     private
