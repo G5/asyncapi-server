@@ -74,8 +74,14 @@ module Asyncapi
             expect(job.status).to eq "error"
           end
         end
-      end
 
+        context "job is nil" do
+          it "retries JobWorker" do
+            expect(JobWorker).to receive(:perform_async).with("999", 1).and_return true
+            expect { described_class.new.perform("999") }.to raise_error
+          end
+        end
+      end
     end
   end
 end
