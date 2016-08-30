@@ -25,7 +25,7 @@ module Asyncapi::Server
         # the ActiveRecord-Sidekiq race condition. In order to
         # prevent this just retry running JobWorker until it finds
         # the job by job_id.
-        if retries < MAX_RETRIES
+        if retries <= MAX_RETRIES
           JobWorker.perform_async(job_id, retries+1)
         end
       end
