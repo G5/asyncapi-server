@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.3] - 2016-07-22
+### Fixed
+- Allow retry in case of AR-Sidekiq race condition
+
 ## [1.1.2] - 2016-07-22
 ### Fixed
 - Relax responders version
