@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.add_dependency "typhoeus"
   s.add_dependency "sidekiq"
   s.add_dependency "responders"
-  s.add_dependency "ar_after_transaction"
 
   s.add_development_dependency "sqlite3", "~> 1.3.10"
   s.add_development_dependency "rspec-rails", "~> 3.1.0"
