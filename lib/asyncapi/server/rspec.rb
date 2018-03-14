@@ -3,7 +3,7 @@ module Asyncapi
     module RSpec
 
       def asyncapi_post(url, params)
-        post(url, {
+        post(url, params: {
           job: {
             callback_url: "callback_url",
             params: params,

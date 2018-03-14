@@ -5,10 +5,12 @@ describe "Enqueueing jobs", type: :request do
   let(:job) { build_stubbed(:asyncapi_server_job, secret: "secret") }
 
   it "allows asynchronous handling of http requests and cleans up old jobs", cleaning_strategy: :truncation do
-    post("/tests", job: {
-      callback_url: "callback_url",
-      params: {client: "params"}.to_json,
-      secret: "secret",
+    post("/tests", params: {
+      job: {
+        callback_url: "callback_url",
+        params: {client: "params"}.to_json,
+        secret: "secret",
+      }
     })
 
     expect(response).to be_successful

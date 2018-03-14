@@ -24,7 +24,7 @@ module Asyncapi
             job.destroy
             respond_with job
           else
-            render nothing: true, status: 404
+            head 404
           end
         end
 
