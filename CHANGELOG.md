@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+## [TBA] - 2018-03-26
+### Added
+- Make gem Rails 5 compatible
 
 ## [1.1.3] - 2016-08-30
 ### Fixed
