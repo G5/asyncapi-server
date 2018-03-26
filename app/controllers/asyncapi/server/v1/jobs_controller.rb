@@ -25,7 +25,7 @@ module Asyncapi
             job.destroy
             respond_with job
           else
-            head 404
+            head :not_found
           end
         end
 
