@@ -1,4 +1,4 @@
-class AddExpiredAtToAsyncapiServerJob < ActiveRecord::Migration
+class AddExpiredAtToAsyncapiServerJob < ActiveRecord::Migration[4.2]
   def change
     add_column :asyncapi_server_jobs, :expired_at, :datetime
 
