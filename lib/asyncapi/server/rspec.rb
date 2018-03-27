@@ -10,7 +10,7 @@ module Asyncapi
       private
 
       def format_params(params)
-        if params.is_a? Hash
+        if params.is_a?(Hash) && params.has_key?(:params)
           params = params[:params]
           return { params: base_params(params) }
         else
