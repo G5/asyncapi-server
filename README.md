@@ -96,7 +96,7 @@ require "asyncapi/server/rspec"
 When you make a request, instead of `post`, use `asyncapi_post`. Ex:
 
 ```ruby
-asyncapi_post("/api/v1/long_running_job", name: "Compute")
+asyncapi_post("/api/v1/long_running_job", params: { name: "Compute" })
 ```
 
 This helper calls `post` underneath but builds the request in a way that Asyncapi server understands.
