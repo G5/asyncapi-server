@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "kaminari"
   s.add_dependency "api-pagination"
-  s.add_dependency "rails", "~> 4.0"
+  s.add_dependency "rails", ">= 4"
   s.add_dependency "active_model_serializers", "~> 0.9.0"
   s.add_dependency "typhoeus"
   s.add_dependency "sidekiq"
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "ar_after_transaction"
 
   s.add_development_dependency "sqlite3", "~> 1.3.10"
-  s.add_development_dependency "rspec-rails", "~> 3.1.0"
+  s.add_development_dependency "rspec-rails", "~> 3.5.0"
   s.add_development_dependency "rspec-its", "~> 1.1.0"
   s.add_development_dependency "rspec-sidekiq"
   s.add_development_dependency "pry", "~> 0.10.1"

@@ -2,6 +2,7 @@ module Asyncapi
   module Server
     module V1
       class JobsController < ApplicationController # TODO: Asyncapi::Server.parent_controller
+        include Rails::Pagination
 
         protect_from_forgery with: :null_session
         respond_to :json
@@ -24,7 +25,7 @@ module Asyncapi
             job.destroy
             respond_with job
           else
-            render nothing: true, status: 404
+            head :not_found
           end
         end
 
