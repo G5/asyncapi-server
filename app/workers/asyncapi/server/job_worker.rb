@@ -45,7 +45,9 @@ module Asyncapi::Server
 
     def fetch_key(job_id, throttled)
       job = Job.find(job_id)
-      job.params.dig(*throttled["keys"]).to_s
+      key = job.params.dig(*throttled["keys"]).to_s
+
+      (key.nil?) ? job_id.to_s : key
     end
 
     def report_job_status(job, job_message)
