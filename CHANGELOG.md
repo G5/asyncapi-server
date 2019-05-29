@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+## [TBA] - 2018-03-26
+### Added [#10](http://github.com/G5/asyncapi-server/pull/10)
+- Make gem Rails 5 compatible
+- Change `asyncapi_post` usage - use kwargs on params
+
+  On your Rails 5 application, use `asyncapi_post(url, params: params)` instead of `asyncapi_post(url, params)`
 
 ## [1.1.3] - 2016-08-30
 ### Fixed
