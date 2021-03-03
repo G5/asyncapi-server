@@ -9,7 +9,8 @@ module Asyncapi
 
         def index
           jobs = paginate Job.all
-          serializer = ActiveModel::ArraySerializer.new(jobs)
+          # serializer = ActiveModel::ArraySerializer.new(jobs)
+          serializer = ActiveModel::Serializer::CollectionSerializer.new(jobs)
           render json: serializer
         end
 
