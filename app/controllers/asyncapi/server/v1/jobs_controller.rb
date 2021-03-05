@@ -2,6 +2,7 @@ module Asyncapi
   module Server
     module V1
       class JobsController < ApplicationController # TODO: Asyncapi::Server.parent_controller
+        include ActiveModelSerializersFix
         include Rails::Pagination
 
         protect_from_forgery with: :null_session
