@@ -3,20 +3,8 @@ module Asyncapi
     module RailsExt
       module Controller
         extend ActiveSupport::Concern
-        # require_relative "../../../../app/controllers/concerns/active_model_serializers_fix.rb"
-        # include ::Controllers::Concerns::ActiveModelSerializersFix
+
         module ClassMethods
-          
-          # require_relative "../../../../app/controllers/concerns/active_model_serializers_fix.rb"
-          
-          # def namespace_for_serializer
-          #   @namespace_for_serializer ||=
-          #     if Module.method_defined?(:parent)
-          #       self.class.parent unless self.class.parent == Object
-          #     else
-          #       self.class.module_parent unless self.class.module_parent == Object
-          #     end
-          # end
           
           def async(method_name, klass)
             define_method(method_name) do
