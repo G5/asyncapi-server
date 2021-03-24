@@ -80,6 +80,14 @@ module Asyncapi
 
           context "when final attempt still fails" do
             let(:retries) { 1 }
+            let(:expected_error_message) do
+              [
+                "Attempt##{retries} to notify #{job.callback_url} failed.",
+                "JobID: #{job.id}",
+                "HTTP Status: #{response.code}",
+                "HTTP Body: #{response.body}",
+              ].join("\n")
+            end
 
             it "raises attempt failure and retries" do
               expect(JobStatusNotifierWorker).to(
@@ -87,7 +95,7 @@ module Asyncapi
               )
 
               expect { described_class.new.perform(job.id, message, retries) }.to(
-                raise_error "Attempt##{retries} to notify #{job.callback_url} failed."
+                raise_error expected_error_message
               )
             end
           end
@@ -96,6 +104,7 @@ module Asyncapi
             let(:expected_error_message) do
               [
                 "Something went wrong while poking #{job.callback_url}",
+                "JobID: #{job.id}",
                 "HTTP Status: #{response.code}",
                 "HTTP Body: #{response.body}",
               ].join("\n")

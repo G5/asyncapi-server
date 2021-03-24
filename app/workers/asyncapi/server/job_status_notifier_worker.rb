@@ -6,31 +6,31 @@ module Asyncapi::Server
     MAX_RETRIES = 2
 
     def perform(job_id, job_message, retries=0)
-      job = Job.find(job_id)
+      @job = Job.find(job_id)
 
-      report_job_status(job, job_message)
+      report_job_status(job_message)
 
       unless @response.code == 200
         if retries <= MAX_RETRIES
           JobStatusNotifierWorker.perform_async(job_id, job_message, retries+1)
 
-          raise "Attempt##{retries} to notify #{job.callback_url} failed."
+          raise format_error("Attempt##{retries} to notify #{@job.callback_url} failed.")
         else
-          raise format_error(job)
+          raise format_error("Something went wrong while poking #{@job.callback_url}")
         end
       end
     end
 
     private
 
-    def report_job_status(job, job_message)
+    def report_job_status(job_message)
       @response ||= Typhoeus.put(
-        job.callback_url,
+        @job.callback_url,
         body: {
           job: {
-            status: job.status,
-            message: job_message,
-            secret: job.secret,
+            status: @job.status,
+            message: @job_message,
+            secret: @job.secret,
           }
         }.to_json,
         headers: {
@@ -40,9 +40,10 @@ module Asyncapi::Server
       )
     end
 
-    def format_error(job)
+    def format_error(error)
       [
-        "Something went wrong while poking #{job.callback_url}",
+        error,
+        "JobID: #{@job.id}",
         "HTTP Status: #{@response.code}",
         "HTTP Body: #{@response.body}",
       ].join("\n")
