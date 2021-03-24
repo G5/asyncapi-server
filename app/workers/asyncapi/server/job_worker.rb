@@ -34,21 +34,7 @@ module Asyncapi::Server
     private
 
     def report_job_status(job, job_message)
-      Typhoeus.put(
-        job.callback_url,
-        body: {
-          job: {
-            status: job.status,
-            message: job_message,
-            secret: job.secret,
-          }
-        }.to_json,
-        headers: {
-          "Content-Type" => "application/json",
-          Accept: "application/json"
-        }
-      )
+      JobStatusNotifierWorker.perform_async(job.id, job_message)
     end
-
   end
 end
