@@ -52,7 +52,7 @@ module Asyncapi
           described_class.new.perform(job.id, message)
         end
 
-        context "an error occurred while notifying callback_url" do
+        context "when an error occurred while notifying callback_url" do
           let(:code) { 404 }
           let(:body) do
             {
@@ -78,7 +78,7 @@ module Asyncapi
             ).and_return(response)
           end
 
-          context "when final attempt still fails" do
+          context "when initial attempt fails" do
             let(:retries) { 1 }
             let(:expected_error_message) do
               [
