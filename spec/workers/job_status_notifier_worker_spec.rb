@@ -60,6 +60,7 @@ module Asyncapi
               status: "Not Found",
             }
           end
+          let(:jid) { "abcde12345" }
 
           before do
             expect(Typhoeus).to receive(:put).with(
@@ -84,14 +85,15 @@ module Asyncapi
               [
                 "Attempt##{retries} to notify #{job.callback_url} failed.",
                 "JobID: #{job.id}",
+                "Next Attempt: #{jid}",
                 "HTTP Status: #{response.code}",
-                "HTTP Body: #{response.body}",
+                "HTTP Response: #{response.inspect}",
               ].join("\n")
             end
 
             it "raises attempt failure and retries" do
               expect(JobStatusNotifierWorker).to(
-                receive(:perform_async).with(job.id, message, retries+1)
+                receive(:perform_async).with(job.id, message, retries+1).and_return(jid)
               )
 
               expect { described_class.new.perform(job.id, message, retries) }.to(
@@ -105,8 +107,9 @@ module Asyncapi
               [
                 "Something went wrong while poking #{job.callback_url}",
                 "JobID: #{job.id}",
+                "Next Attempt: ",
                 "HTTP Status: #{response.code}",
-                "HTTP Body: #{response.body}",
+                "HTTP Response: #{response.inspect}",
               ].join("\n")
             end
 
