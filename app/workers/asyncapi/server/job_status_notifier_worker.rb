@@ -13,8 +13,6 @@ module Asyncapi::Server
       unless @response.code == 200
         if retries <= MAX_RETRIES
           @jid = JobStatusNotifierWorker.perform_async(job_id, job_message, retries+1)
-
-          raise format_error("Attempt##{retries} to notify #{@job.callback_url} failed.")
         else
           raise format_error("Something went wrong while poking #{@job.callback_url}")
         end

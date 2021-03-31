@@ -81,24 +81,13 @@ module Asyncapi
 
           context "when initial attempt fails" do
             let(:retries) { 1 }
-            let(:expected_error_message) do
-              [
-                "Attempt##{retries} to notify #{job.callback_url} failed.",
-                "JobID: #{job.id}",
-                "Next Attempt: #{jid}",
-                "HTTP Status: #{response.code}",
-                "HTTP Response: #{response.inspect}",
-              ].join("\n")
-            end
 
             it "raises attempt failure and retries" do
               expect(JobStatusNotifierWorker).to(
                 receive(:perform_async).with(job.id, message, retries+1).and_return(jid)
               )
 
-              expect { described_class.new.perform(job.id, message, retries) }.to(
-                raise_error expected_error_message
-              )
+              expect { described_class.new.perform(job.id, message, retries) }.not_to raise_error
             end
           end
 
