@@ -8,6 +8,7 @@ module Asyncapi::Server
     subject(:serialized_hash) { serializer.attributes }
 
     its([:id]) { is_expected.to eq job.id }
+    its([:status]) { is_expected.to eq job.status }
 
     it "has a url" do
       allow(job).to receive(:url).and_return("url")

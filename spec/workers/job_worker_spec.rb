@@ -19,20 +19,7 @@ module Asyncapi
 
           expect(Runner).to receive(:call).
             with(job.params) { "message" }
-          expect(Typhoeus).to receive(:put).with(
-            "client_job_url",
-            body: {
-              job: {
-                status: :success,
-                message: "message",
-                secret: "sekret",
-              }
-            }.to_json,
-            headers: {
-              "Content-Type" => "application/json",
-              Accept: "application/json"
-            }
-          )
+          expect(JobStatusNotifierWorker).to receive(:perform_async).with(job.id, "message")
 
           described_class.new.perform(job.id)
           job.reload
@@ -52,21 +39,7 @@ module Asyncapi
 
             allow(Runner).to receive(:call).
               and_raise(error)
-
-            expect(Typhoeus).to receive(:put).with(
-              "client_job_url",
-              body: {
-                job: {
-                  status: :error,
-                  message: ["my error", "back", "trace"].join("\n"),
-                  secret: "sekret",
-                }
-              }.to_json,
-              headers: {
-                "Content-Type" => "application/json",
-                Accept: "application/json"
-              }
-            )
+            expect(JobStatusNotifierWorker).to receive(:perform_async).with(job.id, ["my error", "back", "trace"].join("\n"))
 
             expect { described_class.new.perform(job.id) }.
               to raise_error(error)
