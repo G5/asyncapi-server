@@ -17,7 +17,7 @@ module Asyncapi::Server
       raise e
     ensure
       if job
-        job.update_attributes(status: job_status)
+        job.update(status: job_status)
         report_job_status(job, job_message)
       else
         # For some reason "ActiveRecord::Base.after_transaction",
