@@ -6,11 +6,11 @@ module Asyncapi
         extend ActiveSupport::Concern
 
         module ClassMethods
-          def async(method_name, klass)
+          def async(method_name, klass, throttled=false)
             define_method(method_name) do
               job = Job.create(job_params_with(klass.name))
               ActiveRecord::Base.after_transaction do
-                JobWorker.perform_async(job.id)
+                JobWorker.perform_async(job.id, throttled)
               end
               serializer = JobSerializer.new(job)
               render json: serializer

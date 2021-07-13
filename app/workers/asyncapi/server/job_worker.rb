@@ -2,10 +2,20 @@ module Asyncapi::Server
   class JobWorker
 
     include Sidekiq::Worker
+    include Sidekiq::Throttled::Worker
+
     sidekiq_options retry: false
     MAX_RETRIES = 2
 
-    def perform(job_id, retries=0)
+    sidekiq_throttle({
+      # If throttled, set the concurrency to `concurrency` along with user defined job.parameter key
+      :concurrency => {
+        :limit      => ->(throttled) { (!!throttled) ? throttled["concurrency"].to_i : 10 },
+        :key_suffix => ->(job_id, throttled) { (!!throttled) ? fetch_key(job_id, throttled) : job_id }
+      }
+    })
+
+    def perform(job_id, retries=0, throttled)
       job = Job.find(job_id)
       runner_class = job.class_name.constantize
 
@@ -32,6 +42,13 @@ module Asyncapi::Server
     end
 
     private
+
+    def fetch_key(job_id, throttled)
+      job = Job.find(job_id)
+      key = job.params.dig(*throttled["keys"]).to_s
+
+      (key.nil?) ? job_id.to_s : key
+    end
 
     def report_job_status(job, job_message)
       JobStatusNotifierWorker.perform_async(job.id, job_message)

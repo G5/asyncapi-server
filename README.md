@@ -19,6 +19,13 @@ Rails.application.routes.default_url_options ||= {}
 Rails.application.routes.default_url_options[:host] = ENV["HOST"]
 ```
 
+Setup [sidekiq-throttled](https://github.com/sensortower/sidekiq-throttled) by adding the following to the rails app sidekiq.rb initializer:
+
+```ruby
+require "sidekiq/throttled"
+Sidekiq::Throttled.setup!
+```
+
 # Usage
 
 In your controller where you want a `create` action:
@@ -45,6 +52,18 @@ class CreateSomething
       something.errors.messages
     end
   end
+end
+```
+
+Use the throttle option to allow limited conccurency given a value that can be fetched from job.params
+
+```ruby
+# Given a job: #<Asyncapi::Server::Job id: 1, status: nil, callback_url: "callback_url", class_name: "CreateSomething", params: {"storage_facility"=>{"external_id"=>"storage-facility-external-id"}, secret: "sekret">,
+# a user can set concurrency for jobs having an external_id of "storage-facility-external-id"
+
+# some_controller.rb
+class SomeController < ApplicationController
+  async :create, CreateSomething, { keys: ["storage_facility", "external_id"], concurrency: 1 }
 end
 ```
 
