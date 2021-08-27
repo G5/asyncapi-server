@@ -2,10 +2,10 @@ module Asyncapi
   module Server
     module RailsExt
       module Controller
-
         extend ActiveSupport::Concern
 
         module ClassMethods
+          
           def async(method_name, klass)
             define_method(method_name) do
               job = Job.create(job_params_with(klass.name))

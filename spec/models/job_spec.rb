@@ -20,7 +20,7 @@ module Asyncapi
         its(:status) { is_expected.to eq "queued" }
         its(:callback_url) { is_expected.to eq "http://callback_url.com" }
         its(:class_name) { is_expected.to eq "CreateStorageFacility" }
-        its(:params) { is_expected.to eq("{\"param\"=>\"values\"}") }
+        its(:params) { is_expected.to eq("{\"param\":\"values\"}") }
 
         context "status" do
           it "can also be assigned other values" do
