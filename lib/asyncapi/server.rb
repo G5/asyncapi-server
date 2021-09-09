@@ -1,6 +1,5 @@
 require 'active_model_serializers'
 require 'responders'
-require 'ar_after_transaction'
 require "asyncapi/server/engine"
 
 module Asyncapi
