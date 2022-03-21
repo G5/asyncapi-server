@@ -24,6 +24,8 @@ module Asyncapi::Server
     def report_job_status(job_message)
       @response ||= Typhoeus.put(
         @job.callback_url,
+        timeout: 60,
+        connecttimeout: 60,
         body: {
           job: {
             status: @job.status,

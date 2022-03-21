@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+## [1.3.2]
+### Added
+- Timeout in 60 seconds by default
+
 ## [1.3.1] - rails 6 compatible
 
 ## [1.3.0] - 2021-03-24
