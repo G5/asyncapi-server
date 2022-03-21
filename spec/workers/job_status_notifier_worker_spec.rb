@@ -36,6 +36,8 @@ module Asyncapi
         it "notifies a job's callback_url with the job status" do
           expect(Typhoeus).to receive(:put).with(
             job.callback_url,
+            timeout: 60,
+            connecttimeout: 60,
             body: {
               job: {
                 status: job.status,
@@ -65,6 +67,8 @@ module Asyncapi
           before do
             expect(Typhoeus).to receive(:put).with(
               job.callback_url,
+              timeout: 60,
+              connecttimeout: 60,
               body: {
                 job: {
                   status: job.status,
