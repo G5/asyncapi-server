@@ -4,7 +4,7 @@ module Asyncapi
 
       def asyncapi_post(url, params)
         formatted_params = format_params(params)
-        post(url, formatted_params)
+        post(url, **formatted_params)
       end
 
       private
