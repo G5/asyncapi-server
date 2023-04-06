@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+
+## [1.3.3]
+### Added
+- ruby 3 compatibility
+
 ## [1.3.2]
 ### Added
 - Timeout in 60 seconds by default
