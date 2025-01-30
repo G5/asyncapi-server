@@ -19,14 +19,14 @@ Gem::Specification.new do |s|
 
   s.add_dependency "kaminari"
   s.add_dependency "api-pagination"
-  s.add_dependency "rails", "6.1.7.1"
+  s.add_dependency "rails", ">= 6.1.7.1"
   s.add_dependency "active_model_serializers", "~> 0.9.7"
   s.add_dependency "typhoeus"
   s.add_dependency "sidekiq"
   s.add_dependency "responders"
   s.add_dependency "ar_after_transaction"
 
-  s.add_development_dependency "sqlite3", ">= 1.4"
+  s.add_development_dependency "sqlite3", "1.4.4"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rspec-its"
   s.add_development_dependency "rspec-sidekiq"

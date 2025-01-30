@@ -16,7 +16,7 @@ describe "Enqueueing jobs", type: :request do
     expect(response).to be_successful
     parsed_response = indifferent_hash(response.body)[:job]
     expect(Asyncapi::Server::JobWorker).
-      to have_enqueued_job(parsed_response[:id])
+      to have_enqueued_sidekiq_job(parsed_response[:id])
     expect(parsed_response[:url]).to be_present
     expect(parsed_response[:secret]).to eq "secret"
   end
