@@ -26,12 +26,12 @@ Gem::Specification.new do |s|
   s.add_dependency "responders"
   s.add_dependency "ar_after_transaction"
 
-  s.add_development_dependency "sqlite3", "1.4.4"
+  s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "rspec-its"
   s.add_development_dependency "rspec-sidekiq"
   s.add_development_dependency "pry"
-  s.add_development_dependency "factory_girl_rails", "~> 4.4.0"
+  s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "timecop"
 end
