@@ -5,7 +5,7 @@ DUMMY_DIR = File.join(SPEC_DIR, "dummy")
 require File.join(DUMMY_DIR, "config", "environment")
 require "rspec/rails"
 require "rspec/its"
-require "factory_girl_rails"
+require "factory_bot_rails"
 require "pry"
 require "database_cleaner"
 require "timecop"
@@ -21,8 +21,16 @@ Dir[
 ].each { |f| require f }
 
 RSpec.configure do |config|
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  config.infer_base_class_for_anonymous_controllers = false
+  if config.respond_to?(:fixture_paths=)
+    config.fixture_paths = ["#{::Rails.root}/spec/fixtures"]
+  else
+    config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  end
+
+  if config.respond_to?(:infer_base_class_for_anonymous_controllers=)
+    config.infer_base_class_for_anonymous_controllers = false
+  end
+
   config.order = "random"
 
   config.before(:suite) do
